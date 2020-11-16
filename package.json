@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "license": "MIT",
   "main": "dist/generate.js",
-  "module": "dist/generate.module.js",
   "source": "src/generate.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "microbundle"
+    "build": "microbundle -f cjs"
   },
   "dependencies": {
     "@nexus/schema": "^0.18.0",
