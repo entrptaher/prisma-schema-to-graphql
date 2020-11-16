@@ -1,5 +1,5 @@
 {
-  "name": "paljs-to-graphql",
+  "name": "prisma-schema-to-graphql",
   "version": "1.0.0",
   "license": "MIT",
   "main": "dist/generate.js",
