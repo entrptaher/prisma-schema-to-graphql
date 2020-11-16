@@ -48,7 +48,7 @@ const {
 const { nexusSchemaPrisma } = require('nexus-plugin-prisma/schema');
 import path from 'path';
 
-export default async function main({ basePath, output }) {
+async function main({ basePath, output }) {
   const prismaPath = path.dirname(
     require.resolve('@prisma/client', {
       paths: [basePath],
@@ -117,3 +117,5 @@ export default async function main({ basePath, output }) {
     ],
   });
 }
+
+export default main;
