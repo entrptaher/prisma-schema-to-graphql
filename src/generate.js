@@ -46,10 +46,18 @@ const {
   objectType,
 } = require('@nexus/schema');
 const { nexusSchemaPrisma } = require('nexus-plugin-prisma/schema');
-const { PrismaClient, dmmf } = require('@prisma/client');
+import path from 'path';
 
-export default async function main() {
-  const prisma = new PrismaClient();
+export default async function main({ basePath, output }) {
+  const prismaPath = path.dirname(
+    require.resolve('@prisma/client', {
+      paths: [basePath],
+    })
+  );
+
+  console.log(`Loading prisma client from ${prismaPath}`);
+
+  const { PrismaClient, dmmf } = await import(prismaPath);
 
   // https://github.com/graphql-nexus/nexus-schema-plugin-prisma/issues/339
   const allTheThings = (obj) => {
@@ -62,7 +70,7 @@ export default async function main() {
 
   // extract all models from prisma dmmf
   const parentTypes = () => {
-    const models = dmmf.mappings.map((e) => e.model);
+    const models = dmmf.mappings.modelOperations.map((e) => e.model);
     return models.map((name) =>
       objectType({
         name,
@@ -76,8 +84,7 @@ export default async function main() {
   makeSchema({
     // Where to export the data
     outputs: {
-      schema: __dirname + '/generated/nexus.graphql',
-      typegen: __dirname + '/generated/nexus.ts',
+      schema: basePath + '/' + output,
     },
     // all the types to expose
     types: [
@@ -100,6 +107,10 @@ export default async function main() {
     },
     plugins: [
       nexusSchemaPrisma({
+        prismaClient: new PrismaClient(),
+        inputs: {
+          prismaClient: prismaPath,
+        },
         experimentalCRUD: true,
         shouldGenerateArtifacts: true,
       }),
