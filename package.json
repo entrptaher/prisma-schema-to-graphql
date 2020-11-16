@@ -1,0 +1,34 @@
+{
+  "name": "paljs-to-graphql",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "dist/generate.js",
+  "module": "dist/generate.module.js",
+  "source": "src/generate.js",
+  "scripts": {
+    "build": "microbundle"
+  },
+  "dependencies": {
+    "@graphql-tools/merge": "^6.2.5",
+    "@nexus/schema": "^0.18.0",
+    "@paljs/generator": "^2.5.10",
+    "@paljs/plugins": "^2.5.13",
+    "@paljs/schema": "^2.5.4",
+    "format-graphql": "^1.4.0",
+    "graphql": "^15.4.0",
+    "graphql-tag": "^2.11.0",
+    "nexus-plugin-prisma": "^0.23.1",
+    "rimraf": "^3.0.2"
+  },
+  "peerDependencies": {
+    "@graphql-tools/merge": "^6.2.5",
+    "@paljs/plugins": "^2.5.13",
+    "@prisma/client": "^2.11.0",
+    "format-graphql": "^1.4.0",
+    "graphql": "^15.4.0",
+    "graphql-tag": "^2.11.0"
+  },
+  "devDependencies": {
+    "microbundle": "^0.12.4"
+  }
+}
